@@ -1,6 +1,5 @@
 node_modules
 dist
-docs
 .env
 npm-debug.log*
 yarn-debug.log*
