@@ -14,7 +14,7 @@ A React + Express app to convert PowerPoint slides into notes, generate slides f
 
 ## Production deployment
 
-This repo is configured so the backend can serve the frontend build from `dist/`.
+This repo is configured so the backend can serve the frontend build from `dist/` when deployed on a Node host.
 
 1. Install dependencies:
    - `npm install`
@@ -23,6 +23,21 @@ This repo is configured so the backend can serve the frontend build from `dist/`
 
 The backend listens on `process.env.PORT` or `3001`.
 
+## GitHub Pages
+
+This repository also includes a GitHub Pages workflow that builds the app and deploys the static frontend automatically from `main`.
+
+When the workflow finishes, the site should be available at:
+
+`https://saathvik-dev.github.io/slidenotes-AI/`
+
+## GitHub Pages
+
+- Static files are built into `docs/`.
+- GitHub Pages can serve the frontend from `https://saathvik-dev.github.io/slidenotes-AI/`.
+
+> Note: GitHub Pages only hosts static files. The app still needs a separate backend for `/api` requests.
+
 ## Environment variables
 
 Copy `.env.example` to `.env` and set `OPENAI_API_KEY` in your deployment environment.
@@ -30,4 +45,4 @@ Copy `.env.example` to `.env` and set `OPENAI_API_KEY` in your deployment enviro
 ## Notes
 
 - The frontend uses relative `/api` calls, so the backend and frontend can run from the same hosted domain.
-- `backend/server.js` serves the built `dist/` frontend in production.
+- `backend/server.js` serves the built `docs/` frontend in production.

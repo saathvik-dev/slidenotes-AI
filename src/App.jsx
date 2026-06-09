@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import axios from 'axios'
 
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api'
+})
+
 export default function App() {
   const [page, setPage] = useState('pptToNotes')
   const [file, setFile] = useState(null)
@@ -26,7 +30,7 @@ export default function App() {
     try {
       const formData = new FormData()
       formData.append('file', file)
-      const res = await axios.post('/api/ppt-to-notes', formData)
+      const res = await api.post('/ppt-to-notes', formData)
       setNotes(res.data.notes)
     } catch (e) {
       setError('Something went wrong. Try again.')
@@ -39,7 +43,7 @@ export default function App() {
     setError('')
     setLoading(true)
     try {
-      const res = await axios.post('/api/notes-to-ppt', { text }, { responseType: 'blob' })
+      const res = await api.post('/notes-to-ppt', { text }, { responseType: 'blob' })
       const url = window.URL.createObjectURL(new Blob([res.data]))
       const link = document.createElement('a')
       link.href = url
@@ -66,9 +70,9 @@ export default function App() {
       if (quizInputType === 'ppt') {
         const formData = new FormData()
         formData.append('file', file)
-        res = await axios.post('/api/create-quiz', formData)
+        res = await api.post('/create-quiz', formData)
       } else {
-        res = await axios.post('/api/create-quiz', { text })
+        res = await api.post('/create-quiz', { text })
       }
       setQuiz(res.data.quiz)
     } catch (e) {

@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename)
 const app = express()
 app.use(cors())
 app.use(express.json())
-app.use(express.static(path.join(__dirname, '../dist')))
+app.use(express.static(path.join(__dirname, '../docs')))
 
 const upload = multer({ dest: 'uploads/' })
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
@@ -161,7 +161,7 @@ app.post('/api/create-quiz', upload.single('file'), async (req, res) => {
 })
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'))
+  res.sendFile(path.join(__dirname, '../docs/index.html'))
 })
 
 const PORT = process.env.PORT || 3001
